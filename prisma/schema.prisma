@@ -14,6 +14,7 @@ model accounts {
   isactive                                        Boolean?       @default(true)
   issavings                                       Boolean?       @default(false)
   users                                           users          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  transactions_transactions_account_idToaccounts  transactions[] @relation("transactions_account_idToaccounts")
   transactions_transactions_fromaccountToaccounts transactions[] @relation("transactions_fromaccountToaccounts")
   transactions_transactions_toaccountToaccounts   transactions[] @relation("transactions_toaccountToaccounts")
 }
@@ -25,6 +26,8 @@ model transactions {
   fromaccount                                 Int?
   toaccount                                   Int?
   trans_type                                  trans_type
+  account_id                                  Int?
+  accounts_transactions_account_idToaccounts  accounts?  @relation("transactions_account_idToaccounts", fields: [account_id], references: [account_id], onDelete: NoAction, onUpdate: NoAction)
   accounts_transactions_fromaccountToaccounts accounts?  @relation("transactions_fromaccountToaccounts", fields: [fromaccount], references: [account_id], onDelete: NoAction, onUpdate: NoAction)
   accounts_transactions_toaccountToaccounts   accounts?  @relation("transactions_toaccountToaccounts", fields: [toaccount], references: [account_id], onDelete: NoAction, onUpdate: NoAction)
 }

@@ -30,4 +30,6 @@ toaccount integer references accounts(account_id),
 trans_type trans_type not null
 );
 
+alter table transactions add account_id integer references accounts(account_id);
+
 
