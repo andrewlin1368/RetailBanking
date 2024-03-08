@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model accounts {
+  account_id                                      Int            @id @default(autoincrement())
+  user_id                                         Int
+  balance                                         Decimal?       @default(0) @db.Decimal
+  isactive                                        Boolean?       @default(true)
+  issavings                                       Boolean?       @default(false)
+  users                                           users          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+  transactions_transactions_fromaccountToaccounts transactions[] @relation("transactions_fromaccountToaccounts")
+  transactions_transactions_toaccountToaccounts   transactions[] @relation("transactions_toaccountToaccounts")
+}
+
+model transactions {
+  transaction_id                              Int        @id @default(autoincrement())
+  amount                                      Decimal    @db.Decimal
+  created_at                                  DateTime?  @default(now()) @db.Timestamp(6)
+  fromaccount                                 Int?
+  toaccount                                   Int?
+  trans_type                                  trans_type
+  accounts_transactions_fromaccountToaccounts accounts?  @relation("transactions_fromaccountToaccounts", fields: [fromaccount], references: [account_id], onDelete: NoAction, onUpdate: NoAction)
+  accounts_transactions_toaccountToaccounts   accounts?  @relation("transactions_toaccountToaccounts", fields: [toaccount], references: [account_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  user_id   Int        @id @default(autoincrement())
+  username  String     @unique @db.VarChar(20)
+  firstname String     @db.VarChar(25)
+  lastname  String     @db.VarChar(25)
+  address   String     @db.VarChar(250)
+  ssn       String     @db.VarChar(9)
+  password  String     @db.VarChar(500)
+  isadmin   Boolean    @default(false)
+  accounts  accounts[]
+}
+
+enum trans_type {
+  withdrawal
+  deposit
+  transfer
+}
