@@ -154,7 +154,7 @@ const transfer = async (amount, account_id, to_account_id) => {
   let to_account = await prisma.accounts.findFirst({
     where: { account_id: to_account_id },
   });
-  if (!to_account) return { error: "Account not found" };
+  if (!to_account) return { error: "Account does not exist" };
   let account = await prisma.accounts.findFirst({ where: { account_id } });
   if (!account) return { error: "Account does not exist" };
   if (Number(account.balance) < Number(amount))
