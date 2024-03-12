@@ -16,10 +16,6 @@ const setUser = (state, { payload }) => {
   state.error = null;
 };
 
-const setError = (state, { payload }) => {
-  state.error = payload.error;
-};
-
 const userSlice = createSlice({
   name: "userSlice",
   initialState: {
@@ -45,8 +41,6 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addMatcher(userApi.endpoints.login.matchFulfilled, setUser);
     builder.addMatcher(userApi.endpoints.register.matchFulfilled, setUser);
-    builder.addMatcher(userApi.endpoints.login.matchRejected, setError);
-    builder.addMatcher(userApi.endpoints.register.matchRejected, setError);
   },
 });
 
