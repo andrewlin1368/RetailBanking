@@ -23,3 +23,7 @@
 .right form {
   display: inline-block;
 }
+
+.right input {
+  width: 30vw;
+}

@@ -58,7 +58,7 @@ const Login = () => {
         </div>
       </div>
       <button type="submit" className="btn btn-primary mt-2">
-        Submit
+        Login
       </button>
     </form>
   );
@@ -155,7 +155,7 @@ const Register = () => {
         </div>
       </div>
       <button type="submit" className="btn btn-primary mt-2">
-        Submit
+        Register
       </button>
     </form>
   );
