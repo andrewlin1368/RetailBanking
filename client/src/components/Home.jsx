@@ -172,7 +172,7 @@ export default function Home() {
   return (
     <>
       <nav className="navbar navbar-light bg-light py-3">
-        <span className="navbar-brand mb-0 h1" style={{ margin: "auto" }}>
+        <span className="navbar-brand mb-0 h1 lead" style={{ margin: "auto" }}>
           <i className="bi bi-cash-coin"></i> Retail Banking
         </span>
       </nav>

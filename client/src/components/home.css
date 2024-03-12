@@ -26,4 +26,30 @@
 
 .right input {
   width: 30vw;
+  text-align: center;
+}
+
+.right input::-webkit-input-placeholder {
+  font-family: "myFont", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.right input:-ms-input-placeholder {
+  font-family: "myFont", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.right input:-moz-placeholder {
+  font-family: "myFont", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.right input::-moz-placeholder {
+  font-family: "myFont", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+.right button {
+  font-family: "myFont", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
