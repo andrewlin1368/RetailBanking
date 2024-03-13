@@ -20,13 +20,13 @@ const userSlice = createSlice({
   name: "userSlice",
   initialState: {
     user: window.sessionStorage.getItem("USER")
-      ? window.sessionStorage.getItem("USER").user
+      ? JSON.parse(window.sessionStorage.getItem("USER")).user
       : null,
     token: window.sessionStorage.getItem("USER")
-      ? window.sessionStorage.getItem("USER").token
+      ? JSON.parse(window.sessionStorage.getItem("USER")).token
       : null,
     accounts: window.sessionStorage.getItem("USER")
-      ? window.sessionStorage.getItem("USER").accounts
+      ? JSON.parse(window.sessionStorage.getItem("USER")).accounts
       : [],
     error: null,
   },
