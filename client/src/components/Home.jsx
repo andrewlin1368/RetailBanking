@@ -191,6 +191,7 @@ export default function Home() {
                   onClick={() => {
                     setLogin(false);
                   }}
+                  style={{ textDecoration: "none" }}
                 >
                   Register
                 </Link>
@@ -205,6 +206,7 @@ export default function Home() {
                   onClick={() => {
                     setLogin(true);
                   }}
+                  style={{ textDecoration: "none" }}
                 >
                   Login
                 </Link>
