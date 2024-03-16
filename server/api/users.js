@@ -31,6 +31,13 @@ userRouter.post("/register", async (req, res, next) => {
       return res.status(400).send({ error: "All fields are required" });
     if (!ssn || ssn.length !== 9)
       return res.status(400).send({ error: "SSN must be 9 digits" });
+    if (
+      !username ||
+      (username && (username.length > 20 || username.length < 3))
+    )
+      return res
+        .status(400)
+        .send({ error: "Username must be between 3 and 20 characters" });
     if (!password || password.length < 8)
       return res
         .status(400)

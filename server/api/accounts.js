@@ -54,6 +54,8 @@ accountRouter.put("/transfer", verifyToken, async (req, res, next) => {
     const { account_id, to_account_id, amount } = req.body;
     if (!amount || Number(amount) < 0)
       return res.status(400).send({ error: "Amount cannot be less than 0" });
+    if (account_id === to_account_id)
+      return res.status(400).send({ error: "Cannot transfer to same account" });
     const result = await transfer(amount, account_id, to_account_id);
     return result.error ? res.status(400).send(result) : res.send(result);
   } catch (error) {
