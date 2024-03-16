@@ -52,7 +52,7 @@ const register = async ({
       password: hashPass,
     },
   });
-  const token = jwt.sign({ user_ud: user.user_id }, process.env.JWT);
+  const token = jwt.sign({ user_id: user.user_id }, process.env.JWT);
   return { user, accounts: [], token };
 };
 const editUser = async ({
