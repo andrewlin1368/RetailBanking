@@ -347,10 +347,10 @@ export default function Account() {
             </select>
 
             {sendTransaction.type === "transfer" && (
-              <div class="form-group">
+              <div className="form-group">
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="to_account_id"
                   placeholder="Enter receiving account number"
                   onChange={(e) =>
@@ -409,10 +409,10 @@ export default function Account() {
                   data-bs-placement="right"
                   data-bs-original-title="Icon-only"
                 >
-                  <i class="bi bi-bank fs-1"></i>
+                  <i className="bi bi-bank fs-1"></i>
                 </a>
                 <ul className="nav nav-pills nav-flush flex-sm-column flex-row flex-nowrap mb-auto mx-auto text-center align-items-center">
-                  <li class="nav-item">
+                  <li className="nav-item">
                     <Link
                       onClick={handleShowEditProfile}
                       className="nav-link py-3 px-2"
@@ -424,7 +424,7 @@ export default function Account() {
                       <strong className="lead">Profile</strong>
                     </Link>
                   </li>
-                  <li class="nav-item">
+                  <li className="nav-item">
                     <Link
                       onClick={handleShowAddAccount}
                       className="nav-link py-3 px-2 "
@@ -437,9 +437,9 @@ export default function Account() {
                     </Link>
                   </li>
                   {accounts && accounts.length ? (
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <Link
-                        class="nav-link py-3 px-2"
+                        className="nav-link py-3 px-2"
                         title=""
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
@@ -453,22 +453,23 @@ export default function Account() {
                     <></>
                   )}
                   {user && user.isadmin && (
-                    <li class="nav-item">
+                    <li className="nav-item">
                       <Link
-                        class="nav-link py-3 px-2"
+                        className="nav-link py-3 px-2"
                         title=""
                         data-bs-toggle="tooltip"
                         data-bs-placement="right"
                         data-bs-original-title="Home"
+                        to="/admin"
                       >
                         <strong className="lead">Admin</strong>
                       </Link>
                     </li>
                   )}
-                  <li class="nav-item">
+                  <li className="nav-item">
                     <Link
                       onClick={logout}
-                      class="nav-link py-3 px-2"
+                      className="nav-link py-3 px-2"
                       title=""
                       data-bs-toggle="tooltip"
                       data-bs-placement="right"
