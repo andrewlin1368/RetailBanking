@@ -3,10 +3,10 @@ import api from "./api";
 export const accountApi = api.injectEndpoints({
   endpoints: (builder) => ({
     userInfo: builder.mutation({
-      query: (username) => ({
+      query: (account_id) => ({
         url: "user/get",
         method: "POST",
-        body: { username },
+        body: { account_id },
       }),
     }),
   }),

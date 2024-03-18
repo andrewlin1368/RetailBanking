@@ -7,15 +7,15 @@ const accountSlice = createSlice({
     user: null,
     accounts: [],
   },
-  extraReducers: (builder) => {
-    builder.addMatcher(
-      accountApi.endpoints.userInfo.matchFulfilled,
-      (state, { payload }) => {
-        state.user = payload.user;
-        state.accounts = payload.accounts;
-      }
-    );
-  },
+  // extraReducers: (builder) => {
+  //   builder.addMatcher(
+  //     accountApi.endpoints.userInfo.matchFulfilled,
+  //     (state, { payload }) => {
+  //       state.user = payload.user;
+  //       state.accounts = payload.accounts;
+  //     }
+  //   );
+  // },
 });
 
 export default accountSlice.reducer;
