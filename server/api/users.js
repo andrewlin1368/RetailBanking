@@ -1,7 +1,12 @@
 const express = require("express");
 const userRouter = express.Router();
 const verifyToken = require("../middleware.js");
-const { login, register, editUser, getUserInfo } = require("../../db/index.js");
+const {
+  login,
+  register,
+  editUser,
+  getAccountInfo,
+} = require("../../db/index.js");
 
 userRouter.post("/login", async (req, res, next) => {
   try {
@@ -82,10 +87,10 @@ userRouter.post("/get", verifyToken, async (req, res, next) => {
     if (!req.user)
       return res.status(400).send({ error: "Invalid Credentials" });
     const { user_id } = req.user;
-    const { username } = req.body;
-    if (!username)
-      return res.status(400).send({ error: "Username is required" });
-    const result = await getUserInfo(username, user_id);
+    const { account_id } = req.body;
+    if (!account_id)
+      return res.status(400).send({ error: "Account number is required" });
+    const result = await getAccountInfo(account_id, user_id);
     return result.error ? res.status(400).send(result) : res.send(result);
   } catch (error) {
     next(error);

@@ -79,27 +79,16 @@ const editUser = async ({
   delete user.password;
   return { user };
 };
-const getUserInfo = async (username, user_id) => {
+const getAccountInfo = async (account_id, user_id) => {
   const admin = await prisma.users.findFirst({ where: { user_id } });
   if (!admin.isadmin) return { error: "Invalid Credentials" };
-  const user = await prisma.users.findFirst({ where: { username } });
-  if (!user) return { error: "User not found" };
-  delete user.password;
-  const accounts = await prisma.accounts.findMany({
-    where: { user_id: user.user_id },
-    orderBy: { account_id: "asc" },
+  const account = await prisma.accounts.findFirst({ where: { account_id } });
+  if (!account) return { error: "Account not found" };
+  const transactions = await prisma.transactions.findMany({
+    where: { account_id },
+    orderBy: { created_at: "desc" },
   });
-  const _accounts = [];
-  for (let account of accounts) {
-    _accounts.push({
-      ...account,
-      transactions: await prisma.transactions.findMany({
-        where: { account_id: account.account_id },
-        orderBy: { created_at: "desc" },
-      }),
-    });
-  }
-  return { user, accounts: _accounts };
+  return { account, transactions };
 };
 const addAccount = async (user_id, val) => {
   const account = await prisma.accounts.create({
@@ -198,5 +187,5 @@ module.exports = {
   withdrawal,
   deposit,
   transfer,
-  getUserInfo,
+  getAccountInfo,
 };
