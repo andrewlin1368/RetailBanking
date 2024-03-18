@@ -33,7 +33,7 @@ const Login = () => {
     else navigate("/account");
   };
   return (
-    <form onSubmit={sendLogin}>
+    <form onSubmit={sendLogin} className="homeForm">
       <h1 className="display-6 mb-3">Login</h1>
       <div className="form-group row  mt-2 mb-2">
         <div className="col-sm-12">
@@ -86,7 +86,7 @@ const Register = () => {
     else navigate("/account");
   };
   return (
-    <form onSubmit={sendRegister}>
+    <form onSubmit={sendRegister} className="homeForm">
       <h1 className="display-6 mb-3">Register</h1>
       <div className="form-group row  mt-2 mb-2">
         <div className="col-sm-12">
@@ -172,7 +172,10 @@ export default function Home() {
   return (
     <>
       <nav className="navbar navbar-light bg-light py-3">
-        <span className="navbar-brand mb-0 h1 lead" style={{ margin: "auto" }}>
+        <span
+          className="navbar-brand mb-0 h1 lead fs-1"
+          style={{ margin: "auto" }}
+        >
           <i className="bi bi-cash-coin"></i> Retail Banking
         </span>
       </nav>
@@ -185,7 +188,7 @@ export default function Home() {
           {(login && (
             <>
               <Login></Login>
-              <p className="lead">
+              <p className="lead mt-3">
                 Don't have an account?{" "}
                 <Link
                   onClick={() => {
@@ -200,7 +203,7 @@ export default function Home() {
           )) || (
             <>
               <Register></Register>
-              <p className="lead">
+              <p className="lead mt-3">
                 Have an account?{" "}
                 <Link
                   onClick={() => {
@@ -215,7 +218,35 @@ export default function Home() {
           )}
         </div>
       </div>
-
+      <nav className="navbar fixed-bottom navbar-expand-sm navbar-light bg-light">
+        <div style={{ display: "flex", margin: "auto" }}>
+          <ul className="navbar-nav">
+            <li className="nav-item active">
+              <Link className="nav-link">
+                <i
+                  className="bi bi-linkedin fs-4"
+                  onClick={() => {
+                    window.open(
+                      "https://www.linkedin.com/in/andrewlin1368/",
+                      "_blank"
+                    );
+                  }}
+                ></i>{" "}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link">
+                <i
+                  className="bi bi-github fs-4"
+                  onClick={() => {
+                    window.open("https://github.com/andrewlin1368", "_blank");
+                  }}
+                ></i>{" "}
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <ToastContainer></ToastContainer>
     </>
   );

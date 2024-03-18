@@ -1,5 +1,7 @@
 .parent {
   display: flex;
+  /* background-color: #e2e3e5; */
+  height: 100vh;
 }
 
 .left {
@@ -12,6 +14,7 @@
   width: 100%;
   height: 75%;
   margin-left: 40%;
+  border-radius: 25px;
 }
 
 .right {
@@ -29,27 +32,88 @@
   text-align: center;
 }
 
-.right input::-webkit-input-placeholder {
+@media screen and (max-width: 600px) {
+  .left img {
+    display: none;
+  }
+  .left {
+    width: 0%;
+  }
+  .right {
+    width: 100%;
+  }
+  .homeForm {
+    width: 90%;
+  }
+  .homeForm input {
+    width: 80%;
+    margin: auto;
+  }
+  .accountBox {
+    width: 100% !important;
+  }
+  .balance {
+    float: none !important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .stuff {
+    display: none;
+  }
+  .accountBox {
+    width: 100% !important;
+  }
+  .balance {
+    float: none !important;
+  }
+}
+
+input,
+label,
+.btn,
+.form-select,
+.input-group-text,
+.modal-title::-webkit-input-placeholder {
   font-family: "myFont", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-.right input:-ms-input-placeholder {
+input,
+label,
+.btn,
+.form-select,
+.input-group-text,
+.modal-title:-ms-input-placeholder {
   font-family: "myFont", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-.right input:-moz-placeholder {
+input,
+.btn,
+.form-select,
+.input-group-text,
+label:-moz-placeholder {
   font-family: "myFont", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-.right input::-moz-placeholder {
+input,
+label,
+.btn,
+.form-select,
+.input-group-text,
+.modal-title::-moz-placeholder {
   font-family: "myFont", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-.right button {
+button,
+label,
+.btn,
+.modal-title,
+.input-group-text,
+.form-select {
   font-family: "myFont", "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
@@ -61,4 +125,57 @@
 }
 .table-wrapper-scroll-y {
   display: block;
+}
+
+.homeForm {
+  box-sizing: border-box;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: 3px 3px gray, -1em 0 0.4em black;
+  background-color: white;
+  opacity: 0.9;
+}
+
+.accountBox {
+  width: 75%;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 30px;
+  padding: 15px;
+  margin: 3px;
+}
+
+.adminTransaction {
+  word-wrap: break-word;
+  margin-bottom: 0;
+}
+.adminAccount {
+  margin: 2px;
+  padding: 5px;
+}
+
+.balance {
+  float: right;
+}
+
+.rightSide {
+  position: relative;
+}
+
+.rightRight {
+  position: fixed;
+  right: 0;
+  top: 20%;
+}
+
+.stuff {
+  border: 1px solid black;
+  height: 500px;
+  width: 200px;
+  margin-right: 40px;
+  background-color: #dee2e6;
+  border-radius: 25px;
+  opacity: 0.75;
+  padding: 5px;
 }

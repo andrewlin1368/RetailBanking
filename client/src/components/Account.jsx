@@ -171,6 +171,7 @@ export default function Account() {
   const handleShowTransaction = () => {
     setShowTransaction(true);
   };
+
   // console.log(sendTransaction);
   return (
     <>
@@ -304,14 +305,16 @@ export default function Account() {
         </Modal.Footer>
       </Modal>
 
-      <Modal show={showTransaction} onHide={handleCloseTransaction}>
+      <Modal show={showTransaction} onHide={handleCloseTransaction} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Create a Transaction.</Modal.Title>
+          <Modal.Title>
+            <h1 className="display-6">Create a Transaction.</h1>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div>
             <select
-              className="form-select"
+              className="form-select mb-2"
               name="type"
               onChange={(e) =>
                 setSendTransaction({ ...sendTransaction, type: e.target.value })
@@ -324,7 +327,7 @@ export default function Account() {
             </select>
 
             <select
-              className="form-select"
+              className="form-select mb-2"
               name="account_id"
               onChange={(e) => {
                 setSendTransaction({
@@ -347,7 +350,7 @@ export default function Account() {
             </select>
 
             {sendTransaction.type === "transfer" && (
-              <div className="form-group">
+              <div className="form-group mb-2">
                 <input
                   type="text"
                   className="form-control"
@@ -484,7 +487,7 @@ export default function Account() {
             <div className="col-sm p-3 min-vh-100">
               {" "}
               <div className="rightSide">
-                <h1 className="display-4" style={{ textAlign: "center" }}>
+                <h1 className="display-5" style={{ textAlign: "right" }}>
                   Welcome{" "}
                   {user &&
                     user.firstname[0].toUpperCase() +
@@ -499,18 +502,21 @@ export default function Account() {
                   style={{
                     height: "0px",
                     border: "none",
-                    borderTop: "8px solid black",
+                    borderTop: "4px solid black",
                   }}
                 />
                 {accounts && accounts.length ? (
                   <>
                     {accounts.map((account) => {
                       return (
-                        <div key={account.account_id}>
+                        <div key={account.account_id} className="accountBox">
                           {account.issavings ? (
-                            <Link style={{ textDecoration: "none" }}>
+                            <Link
+                              className="row"
+                              style={{ textDecoration: "none" }}
+                            >
                               <h1
-                                className="display-6"
+                                className="display-6 col-sm"
                                 id={account.account_id}
                                 onClick={(e) => {
                                   setShow({
@@ -520,17 +526,39 @@ export default function Account() {
                                 }}
                               >
                                 SAVINGS#{account.account_id}{" "}
+                              </h1>
+                              <h1
+                                className="display-6 col-sm"
+                                id={account.account_id}
+                                onClick={(e) => {
+                                  setShow({
+                                    ...show,
+                                    [e.target.id]: !show[e.target.id],
+                                  });
+                                }}
+                              >
                                 <strong
-                                  style={{ color: "#0d6efd", float: "right" }}
+                                  id={account.account_id}
+                                  className="balance"
+                                  style={{ color: "#0d6efd" }}
+                                  onClick={(e) => {
+                                    setShow({
+                                      ...show,
+                                      [e.target.id]: !show[e.target.id],
+                                    });
+                                  }}
                                 >
                                   {USDollar.format(Number(account.balance))}
                                 </strong>
                               </h1>
                             </Link>
                           ) : (
-                            <Link style={{ textDecoration: "none" }}>
+                            <Link
+                              className="row"
+                              style={{ textDecoration: "none" }}
+                            >
                               <h1
-                                className="display-6"
+                                className="display-6 col-sm"
                                 id={account.account_id}
                                 onClick={(e) => {
                                   setShow({
@@ -540,8 +568,28 @@ export default function Account() {
                                 }}
                               >
                                 CHECKING#{account.account_id}
+                              </h1>
+                              <h1
+                                className="col-sm display-6"
+                                id={account.account_id}
+                                onClick={(e) => {
+                                  setShow({
+                                    ...show,
+                                    [e.target.id]: !show[e.target.id],
+                                  });
+                                }}
+                              >
+                                {" "}
                                 <strong
-                                  style={{ color: "#0d6efd", float: "right" }}
+                                  id={account.account_id}
+                                  className="balance"
+                                  style={{ color: "#0d6efd" }}
+                                  onClick={(e) => {
+                                    setShow({
+                                      ...show,
+                                      [e.target.id]: !show[e.target.id],
+                                    });
+                                  }}
                                 >
                                   {USDollar.format(Number(account.balance))}
                                 </strong>
@@ -557,7 +605,7 @@ export default function Account() {
                                       return (
                                         <tbody
                                           key={transaction.transaction_id}
-                                          className="lead"
+                                          className="lead container"
                                         >
                                           <hr
                                             style={{
@@ -568,8 +616,12 @@ export default function Account() {
                                           ></hr>
                                           {transaction.trans_type ===
                                           "withdrawal" ? (
-                                            <p>
+                                            <p
+                                              className="row"
+                                              style={{ margin: "auto" }}
+                                            >
                                               <strong
+                                                className="col-sm-3"
                                                 style={{
                                                   color: "red",
                                                 }}
@@ -578,11 +630,10 @@ export default function Account() {
                                                   Number(transaction.amount)
                                                 )}
                                               </strong>{" "}
-                                              <div className="vr"></div>{" "}
-                                              <strong className="fw-light">
+                                              <strong className="fw-light col-sm-6">
                                                 {transaction.trans_type.toUpperCase()}
                                               </strong>
-                                              <div style={{ float: "right" }}>
+                                              <div className="col-sm-3">
                                                 <i className="bi bi-clock-history"></i>{" "}
                                                 {
                                                   transaction.created_at.split(
@@ -593,20 +644,23 @@ export default function Account() {
                                             </p>
                                           ) : transaction.trans_type ===
                                             "deposit" ? (
-                                            <p>
+                                            <p
+                                              className="row"
+                                              style={{ margin: "auto" }}
+                                            >
                                               <strong
+                                                className="col-sm-3"
                                                 style={{ color: "green" }}
                                               >
                                                 {USDollar.format(
                                                   Number(transaction.amount)
                                                 )}
                                               </strong>{" "}
-                                              <div className="vr"></div>
-                                              <strong className="fw-light">
+                                              <strong className="fw-light col-sm-6">
                                                 {" "}
                                                 {transaction.trans_type.toUpperCase()}
                                               </strong>
-                                              <div style={{ float: "right" }}>
+                                              <div className="col-sm-3">
                                                 <i className="bi bi-clock-history"></i>{" "}
                                                 {
                                                   transaction.created_at.split(
@@ -619,22 +673,28 @@ export default function Account() {
                                               "transfer" &&
                                             transaction.account_id ===
                                               transaction.toaccount ? (
-                                            <p>
+                                            <p
+                                              className="row"
+                                              style={{ margin: "auto" }}
+                                            >
                                               <strong
+                                                className="col-sm-3"
                                                 style={{ color: "green" }}
                                               >
                                                 {USDollar.format(
                                                   Number(transaction.amount)
                                                 )}
                                               </strong>{" "}
-                                              <div className="vr"></div>{" "}
-                                              <strong className="fw-light">
+                                              <strong className="fw-light col-sm-6">
                                                 {transaction.trans_type.toUpperCase() +
                                                   ` FROM ACC******${String(
                                                     transaction.fromaccount
                                                   ).substring(6)}`}
                                               </strong>
-                                              <div style={{ float: "right" }}>
+                                              <div
+                                                className="col-sm-3"
+                                                style={{ float: "right" }}
+                                              >
                                                 <i className="bi bi-clock-history"></i>{" "}
                                                 {
                                                   transaction.created_at.split(
@@ -644,20 +704,28 @@ export default function Account() {
                                               </div>
                                             </p>
                                           ) : (
-                                            <p>
-                                              <strong style={{ color: "red" }}>
+                                            <p
+                                              className="row"
+                                              style={{ margin: "auto" }}
+                                            >
+                                              <strong
+                                                className="col-sm-3"
+                                                style={{ color: "red" }}
+                                              >
                                                 {USDollar.format(
                                                   Number(transaction.amount)
                                                 )}
                                               </strong>{" "}
-                                              <div className="vr"></div>{" "}
-                                              <strong className="fw-light">
+                                              <strong className="fw-light col-sm-6">
                                                 {transaction.trans_type.toUpperCase() +
                                                   ` TO ACC******${String(
                                                     transaction.toaccount
                                                   ).substring(6)}`}
                                               </strong>
-                                              <div style={{ float: "right" }}>
+                                              <div
+                                                className="col-sm-3"
+                                                style={{ float: "right" }}
+                                              >
                                                 <i className="bi bi-clock-history"></i>{" "}
                                                 {
                                                   transaction.created_at.split(
@@ -687,13 +755,13 @@ export default function Account() {
                                 </p>
                               </>
                             ))}
-                          <hr
+                          {/* <hr
                             style={{
                               height: "0px",
                               border: "none",
                               borderTop: "3px solid black",
                             }}
-                          />
+                          /> */}
                         </div>
                       );
                     })}
@@ -703,10 +771,75 @@ export default function Account() {
                     <h1 className="display-5">No Accounts</h1>
                     <p className="lead">
                       Start by creating a new{" "}
-                      <Link style={{ textDecoration: "none" }}>account</Link>!
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        onClick={handleShowAddAccount}
+                      >
+                        account
+                      </Link>
+                      !
                     </p>
                   </div>
                 )}
+              </div>
+              <div className="rightRight">
+                <div className="stuff">
+                  <h1 className="display-6" style={{ textAlign: "center" }}>
+                    Connect with me!
+                  </h1>
+                  <hr />
+                  <div style={{ padding: "5px" }}>
+                    <p className="lead mb-0">
+                      Add me on LinkedIn{" "}
+                      <Link>
+                        <i
+                          className="bi bi-linkedin fs-4"
+                          onClick={() => {
+                            window.open(
+                              "https://www.linkedin.com/in/andrewlin1368/",
+                              "_blank"
+                            );
+                          }}
+                        ></i>
+                      </Link>
+                      .
+                    </p>
+                    <p></p>
+                    <p className="lead mb-0">
+                      Check out my GitHub{" "}
+                      <Link>
+                        <i
+                          className="bi bi-github fs-4"
+                          onClick={() => {
+                            window.open(
+                              "https://github.com/andrewlin1368",
+                              "_blank"
+                            );
+                          }}
+                        ></i>
+                      </Link>
+                      .
+                    </p>
+                    <p></p>
+                    <p className="lead mb-0">
+                      Send me an email{" "}
+                      <Link>
+                        <i
+                          className="bi bi-envelope fs-4"
+                          onClick={() => {
+                            window.open("mailto:andrewlin1368@gmail.com?");
+                          }}
+                        ></i>
+                      </Link>
+                      .
+                    </p>
+                  </div>
+                  <div className=" mt-4" style={{ textAlign: "center" }}>
+                    <div>
+                      <i className="bi bi-emoji-laughing-fill fs-1 "></i>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

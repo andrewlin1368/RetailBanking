@@ -21,7 +21,7 @@ export default function Admin() {
   const [accountNum, setAccountNum] = useState(null);
   const [loading, setloading] = useState(false);
 
-  const sendGetAccount = async (e) => {
+  const sendGetAccount = async () => {
     if (!accountNum)
       return toast.error("Please enter an account number", {
         position: "top-right",
@@ -41,8 +41,22 @@ export default function Admin() {
   };
   return (
     <div>
-      <button onClick={() => navigate("/")}>Exit Account Search</button>
-      <div className="input-group mb-3">
+      <h1 className="display-3" style={{ textAlign: "center" }}>
+        Search Account
+      </h1>
+      <div className="mb-3" style={{ textAlign: "center" }}>
+        <button
+          type="button"
+          class="btn btn-primary"
+          onClick={() => navigate("/")}
+        >
+          Exit Account Search
+        </button>
+      </div>
+      <div
+        className="input-group mb-3"
+        style={{ margin: "auto", width: "75%" }}
+      >
         <input
           type="number"
           className="form-control"
@@ -52,7 +66,7 @@ export default function Admin() {
         />
         <div className="input-group-append">
           <button
-            className="btn btn-outline-secondary"
+            className="btn btn-primary"
             type="button"
             onClick={sendGetAccount}
           >
@@ -60,40 +74,63 @@ export default function Admin() {
           </button>
         </div>
       </div>
-      {loading && <>Loading...</>}
+      {loading && (
+        <div className="d-flex justify-content-center">
+          <div className="spinner-border" role="status"></div>
+        </div>
+      )}
       {!loading && account && (
-        <>
-          {account.account.issavings ? (
-            <>SAVINGS#{account.account.account_id}</>
-          ) : (
-            <>CHECKING#{account.account.account_id}</>
-          )}
-          BALANCE: {USDollar.format(Number(account.account.balance))}
+        <div className="adminAccount">
+          <h1 className="display-6 row">
+            <div className="col-sm">
+              {account.account.issavings ? (
+                <>SAVINGS#{account.account.account_id}</>
+              ) : (
+                <>CHECKING#{account.account.account_id}</>
+              )}
+            </div>
+            <div className="col-sm" style={{ textAlign: "right" }}>
+              Current Balance:{" "}
+              {USDollar.format(Number(account.account.balance))}
+            </div>
+          </h1>
           {account.transactions.length ? (
-            <>
+            <div>
               {account.transactions.map((transaction) => {
                 return (
-                  <div key={transaction.transaction_id}>
-                    {USDollar.format(Number(transaction.amount))} -{" "}
-                    {transaction.trans_type === "deposit" ? (
-                      <>DEPOSIT</>
-                    ) : transaction.trans_type === "withdrawal" ? (
-                      <>WITHDRAWAL</>
-                    ) : transaction.trans_type === "transfer" &&
-                      transaction.toaccount === transaction.account_id ? (
-                      <>TRANSFER FROM {transaction.fromaccount}</>
-                    ) : (
-                      <>TRANSFER TO {transaction.toaccount}</>
-                    )}
-                    {transaction.created_at.split("T")[0]}
+                  <div
+                    className="adminTransaction lead row mb-0"
+                    key={transaction.transaction_id}
+                  >
+                    <p className="col-sm">
+                      {USDollar.format(Number(transaction.amount))} -{" "}
+                      {transaction.trans_type === "deposit" ? (
+                        <span style={{ color: "green" }}>DEPOSIT</span>
+                      ) : transaction.trans_type === "withdrawal" ? (
+                        <span style={{ color: "red" }}>WITHDRAWAL</span>
+                      ) : transaction.trans_type === "transfer" &&
+                        transaction.toaccount === transaction.account_id ? (
+                        <span style={{ color: "green" }}>
+                          TRANSFER FROM ACC#{transaction.fromaccount}
+                        </span>
+                      ) : (
+                        <span style={{ color: "red" }}>
+                          TRANSFER TO ACC#{transaction.toaccount}
+                        </span>
+                      )}
+                    </p>
+                    <p className="col-sm lead" style={{ textAlign: "right" }}>
+                      {transaction.created_at.split("T")[0]}{" "}
+                      {transaction.created_at.split("T")[1].split(".")[0]}
+                    </p>
                   </div>
                 );
               })}
-            </>
+            </div>
           ) : (
-            <>NO TRANSACTIONS</>
+            <h1 className="display-6">NO TRANSACTIONS</h1>
           )}
-        </>
+        </div>
       )}
       <ToastContainer></ToastContainer>
     </div>
